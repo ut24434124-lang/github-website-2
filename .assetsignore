@@ -1,0 +1,6 @@
+# ملفات مستبعدة من رفعها كأصول موقع ثابت
+# (الملفات والمجلدات المخفية مثل .git وnode_modules يُستثناها Wrangler تلقائيًا)
+.wrangler
+wrangler.jsonc
+wrangler.toml
+wrangler.lock
