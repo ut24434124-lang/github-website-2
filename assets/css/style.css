@@ -1,0 +1,1606 @@
+/* ═══════════════════════════════════════════════════════════
+   أساسيات عامة
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --c-primary: #6C5CE7;
+  --c-primary-soft: #EEECFF;
+  --c-primary-dark: #5546C8;
+  --c-ink: #2D3436;
+  --c-muted: #5F6A6F;
+  --c-bg: #FFFFFF;
+  --c-bg-page: #F3F1FC;
+  --c-border: #E3E0F5;
+  --c-code-bg: #1E1B2E;
+  --c-code-text: #E8E6F5;
+  --c-code-accent: #9B8CFF;
+
+  /* الحد الأدنى لحجم الخط 28px في كامل العرض (يضاف قياس الخط هنا) */
+  --fs-body: clamp(28px, 2vw, 33px);
+  --fs-small: 28px;
+  --fs-h3: clamp(30px, 2.4vw, 38px);
+  --fs-h2: clamp(42px, 4.2vw, 66px);
+  --fs-h1: clamp(54px, 7.5vw, 108px);
+
+  --radius: 22px;
+  --radius-sm: 14px;
+  --shadow: 0 10px 30px rgba(108, 92, 231, 0.12);
+  --font-main: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  /* منع التمرير الرأسي للصفحة أثناء العرض */
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--c-bg-page);
+  color: var(--c-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--c-primary-dark);
+}
+
+code {
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   نظام الشرائح
+   ═══════════════════════════════════════════════════════════ */
+
+.deck {
+  height: 100dvh;
+  position: relative;
+}
+
+.slides {
+  position: relative;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 3vw, 56px);
+  padding-bottom: clamp(120px, 14vh, 160px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+  pointer-events: none;
+  background: var(--c-bg);
+}
+
+.slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.slide__inner {
+  width: min(1360px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3.5vh, 44px);
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-border) transparent;
+}
+
+.slide--cover {
+  background:
+    radial-gradient(70vw 60vh at 85% -10%, rgba(108, 92, 231, 0.14), transparent 60%),
+    radial-gradient(55vw 50vh at 5% 110%, rgba(108, 92, 231, 0.10), transparent 60%),
+    var(--c-bg);
+}
+
+/* عناوين الشرائح */
+.slide__head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-bottom: 4px solid var(--c-primary-soft);
+  padding-bottom: 18px;
+}
+
+.slide__eyebrow {
+  font-size: var(--fs-small);
+  color: var(--c-primary-dark);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.slide__head h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.35;
+  font-weight: 800;
+}
+
+.lead {
+  font-size: var(--fs-h3);
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   شبكات وبطاقات عامة
+   ═══════════════════════════════════════════════════════════ */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+
+.panel {
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: clamp(22px, 2.5vw, 36px);
+}
+
+.panel--diagram {
+  background: var(--c-bg);
+}
+
+.panel__caption {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-primary-dark);
+  margin-bottom: 16px;
+}
+
+.panel__title {
+  font-size: var(--fs-h3);
+  margin-bottom: 18px;
+  font-weight: 800;
+}
+
+.panel__title--links {
+  margin-top: 24px;
+}
+
+.feature-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.feature-list__dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  margin-inline-end: 14px;
+  vertical-align: middle;
+}
+
+.hint {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.6;
+  margin-top: 14px;
+}
+
+.hint--center {
+  text-align: center;
+}
+
+.cards {
+  list-style: none;
+  display: grid;
+  gap: clamp(16px, 1.8vw, 26px);
+}
+
+.cards--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cards--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card {
+  background: linear-gradient(180deg, #FFFFFF, #FBFAFF);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: clamp(18px, 2vw, 30px);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card h3 {
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+}
+
+.card p {
+  font-size: var(--fs-small);
+  line-height: 1.65;
+  color: var(--c-muted);
+}
+
+.card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--c-primary-soft);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 1 — الغلاف
+   ═══════════════════════════════════════════════════════════ */
+
+.cover {
+  align-items: center;
+  text-align: center;
+}
+
+.cover__kicker {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-primary);
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: 999px;
+  padding: 10px 30px;
+  width: fit-content;
+}
+
+.cover__title {
+  font-size: var(--fs-h1);
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.cover__title .accent {
+  color: var(--c-primary);
+}
+
+.cover__subtitle {
+  font-size: var(--fs-h3);
+  color: var(--c-muted);
+  line-height: 1.7;
+}
+
+.cover__brands {
+  display: flex;
+  gap: clamp(16px, 2vw, 30px);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.brand-chip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 16px 26px;
+  box-shadow: var(--shadow);
+  text-align: start;
+}
+
+.brand-chip strong {
+  display: block;
+  font-size: var(--fs-h3);
+  line-height: 1.3;
+}
+
+.brand-chip span {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+.cover__quote {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--c-primary-dark);
+  background: var(--c-primary-soft);
+  border-inline-start: 8px solid var(--c-primary);
+  border-radius: var(--radius-sm);
+  padding: 20px 30px;
+  max-width: 60ch;
+}
+
+.cover__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.label {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--c-ink);
+  border: 2px dashed #C9C3EA;
+  border-radius: 999px;
+  padding: 8px 22px;
+  background: var(--c-bg);
+}
+
+.label--primary {
+  background: var(--c-primary);
+  color: #fff;
+  border-style: solid;
+  border-color: var(--c-primary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 2 — الخط الزمني للإصدارات
+   ═══════════════════════════════════════════════════════════ */
+
+.timeline {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 10px;
+  margin-bottom: 8px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 26px;
+  inset-inline: 8%;
+  height: 5px;
+  background: var(--c-border);
+  border-radius: 4px;
+}
+
+.tl-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  flex: 1;
+}
+
+.tl-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  border: 7px solid var(--c-primary-soft);
+  box-shadow: 0 0 0 3px var(--c-primary);
+}
+
+.tl-name {
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+}
+
+.tl-desc {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.55;
+}
+
+.tl-back {
+  position: absolute;
+  bottom: -16px;
+  inset-inline-start: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tl-back__label {
+  font-size: var(--fs-small);
+  color: var(--c-primary-dark);
+  font-weight: 700;
+  background: var(--c-bg);
+  padding: 4px 16px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 3 — المقارنة وزر الزيارة
+   ═══════════════════════════════════════════════════════════ */
+
+.compare {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: clamp(20px, 2.2vw, 32px);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.compare__title {
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  width: 100%;
+  color: var(--c-ink);
+  margin-bottom: 4px;
+}
+
+.compare__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  flex: 1;
+  min-width: 300px;
+}
+
+.compare__item {
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.compare__item--git {
+  background: var(--c-primary-soft);
+}
+
+.compare__item--github {
+  background: #F1F2F6;
+}
+
+.compare__item strong {
+  font-size: var(--fs-h3);
+}
+
+.btn-visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: inherit;
+  font-size: clamp(28px, 2vw, 32px);
+  font-weight: 800;
+  color: #fff;
+  background: var(--c-primary);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 34px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-visit:hover,
+.btn-visit:focus-visible {
+  background: var(--c-primary-dark);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 4 — بطاقات المصطلحات ومخطط المستودع
+   ═══════════════════════════════════════════════════════════ */
+
+.terms {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.term {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow);
+}
+
+.term h3 {
+  font-size: clamp(29px, 1.9vw, 33px);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.term__ar {
+  display: block;
+  color: var(--c-primary-dark);
+  font-size: 0.85em;
+}
+
+.term p {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.55;
+}
+
+.term__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--c-primary-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.repo-diagram {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 40px);
+  flex-wrap: wrap;
+}
+
+.repo-diagram__repo {
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 280px;
+}
+
+.repo-diagram__title {
+  font-size: var(--fs-small);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+}
+
+.repo-diagram__branch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: 999px;
+  padding: 8px 18px;
+  width: fit-content;
+}
+
+.repo-diagram__name {
+  font-family: "Consolas", monospace;
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+.commit-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-primary);
+}
+
+.commit-dot--accent {
+  background: #2D3436;
+}
+
+.repo-diagram__note {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.6;
+  flex: 1;
+  min-width: 240px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 5 — دورة العمل
+   ═══════════════════════════════════════════════════════════ */
+
+.flow {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(12px, 1.4vw, 20px);
+  counter-reset: step;
+}
+
+.flow__step {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: clamp(14px, 1.6vw, 24px);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flow__num {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: clamp(30px, 2vw, 34px);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow__step h3 {
+  font-size: clamp(29px, 1.9vw, 33px);
+  font-weight: 800;
+}
+
+.flow__step p {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.55;
+}
+
+.flow__step code {
+  font-size: var(--fs-small);
+  color: var(--c-primary-dark);
+  font-weight: 700;
+}
+
+.mini-title {
+  font-size: var(--fs-h3);
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+/* خط أنابيب الحالات */
+.stage-pipeline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stage {
+  flex: 1;
+  min-width: 120px;
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 14px 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stage strong {
+  font-size: clamp(29px, 1.9vw, 33px);
+  font-weight: 800;
+}
+
+.stage span {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  font-family: "Consolas", monospace;
+}
+
+.stage--edited {
+  background: #FFF3D6;
+  border-color: #F0DE9E;
+}
+
+.stage--remote {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+
+.stage--remote span {
+  color: #EDEBFF;
+}
+
+.stage-arrow {
+  width: 30px;
+  height: 4px;
+  background: var(--c-primary);
+  border-radius: 4px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.stage-arrow::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -8px;
+  top: -6px;
+  border: 8px solid transparent;
+  border-inline-start-color: var(--c-primary);
+}
+
+[dir="rtl"] .stage-arrow::after {
+  inset-inline-start: -12px;
+  transform: scaleX(-1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   كتل الأكواد (نافذة سطر أوامر)
+   ═══════════════════════════════════════════════════════════ */
+
+.term {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #12101F;
+  box-shadow: 0 12px 30px rgba(30, 27, 46, 0.25);
+}
+
+.term__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2A2542;
+  padding: 10px 16px;
+}
+
+.term__bar span:not(.term__title) {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #4B4570;
+}
+
+.term__bar span:not(.term__title):first-child {
+  background: #FF5F57;
+}
+
+.term__bar span:not(.term__title):nth-child(2) {
+  background: #FEBC2E;
+}
+
+.term__bar span:not(.term__title):nth-child(3) {
+  background: #28C840;
+}
+
+.term__title {
+  margin-inline-start: auto;
+  font-family: "Consolas", monospace;
+  font-size: var(--fs-small);
+  color: #B7B1D9;
+  direction: ltr;
+}
+
+.code {
+  background: var(--c-code-bg);
+  color: var(--c-code-text);
+  padding: 20px 24px;
+  font-size: clamp(28px, 1.85vw, 32px);
+  line-height: 1.75;
+  white-space: pre;
+  overflow-x: auto;
+  direction: ltr;
+  text-align: left;
+  scrollbar-width: thin;
+}
+
+.code code {
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 6 — الأوامر
+   ═══════════════════════════════════════════════════════════ */
+
+.cmd-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.cmd-group {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  box-shadow: var(--shadow);
+}
+
+.cmd-group__title {
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+  margin-bottom: 10px;
+}
+
+.cmd-group ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cmd-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+
+.cmd {
+  background: var(--c-code-bg);
+  color: var(--c-code-accent);
+  border-radius: 10px;
+  padding: 4px 14px;
+  font-size: var(--fs-small);
+  white-space: nowrap;
+}
+
+.cmd-desc {
+  color: var(--c-muted);
+}
+
+.badge {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: #fff;
+  background: var(--c-primary);
+  border-radius: 999px;
+  padding: 2px 16px;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 7 — الفروع وسيناريو الدمج
+   ═══════════════════════════════════════════════════════════ */
+
+.branch-graph {
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
+}
+
+.pr-flow {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.pr-flow li {
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: 14px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+.pr-flow li span {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--fs-small);
+}
+
+.pr-flow .en {
+  font-family: "Consolas", monospace;
+}
+
+.pr-flow__arrow {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 26px;
+  height: 4px;
+  position: relative;
+}
+
+.pr-flow__arrow::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: -10px;
+  top: -7px;
+  border: 9px solid transparent;
+  border-inline-start-color: var(--c-primary);
+}
+
+[dir="ltr"] .pr-flow__arrow::after {
+  transform: scaleX(-1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 8 — الخطوات والواجهة التوضيحية
+   ═══════════════════════════════════════════════════════════ */
+
+.steps {
+  list-style: none;
+  counter-reset: step01;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+.steps__num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: var(--fs-small);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mock-window {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-top: 20px;
+}
+
+.mock-window__bar {
+  display: flex;
+  gap: 8px;
+  background: var(--c-primary-soft);
+  padding: 12px 16px;
+}
+
+.mock-window__bar span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  opacity: 0.5;
+}
+
+.mock-window__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 2px solid var(--c-border);
+  font-size: var(--fs-small);
+}
+
+.mock-window__head strong {
+  font-family: "Consolas", monospace;
+  color: var(--c-primary-dark);
+}
+
+.mock-window__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mock-field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: var(--fs-small);
+}
+
+.mock-field__label {
+  font-weight: 800;
+  min-width: 130px;
+}
+
+.mock-field__value {
+  flex: 1;
+  min-width: 160px;
+  border: 2px solid var(--c-primary);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-family: "Consolas", monospace;
+}
+
+.mock-choice {
+  border: 2px solid var(--c-border);
+  border-radius: 999px;
+  padding: 6px 22px;
+  font-family: "Consolas", monospace;
+  color: var(--c-muted);
+}
+
+.mock-choice--on {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary-dark);
+  font-weight: 700;
+}
+
+.mock-btn {
+  width: fit-content;
+  background: #26A641;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 24px;
+  font-family: "Consolas", monospace;
+  font-weight: 700;
+}
+
+.mock-window__caption {
+  padding: 10px 20px 16px;
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 9 — المثال العملي
+   ═══════════════════════════════════════════════════════════ */
+
+.demo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.6vw, 24px);
+  align-items: start;
+}
+
+.demo__step {
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: clamp(14px, 1.6vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow);
+}
+
+.demo__step h3 {
+  font-size: var(--fs-h3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demo__num {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: var(--fs-small);
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.demo__step .code {
+  font-size: clamp(26px, 1.5vw, 29px);
+}
+
+.demo__result {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+  line-height: 1.6;
+}
+
+.demo-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.demo-pipeline__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--c-primary-soft);
+  border: 2px solid var(--c-border);
+  border-radius: 14px;
+  padding: 14px 26px;
+}
+
+.demo-pipeline__node strong {
+  font-size: clamp(29px, 1.9vw, 33px);
+}
+
+.demo-pipeline__node span {
+  font-size: var(--fs-small);
+  font-family: "Consolas", monospace;
+  color: var(--c-muted);
+}
+
+.demo-pipeline__node--remote {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+
+.demo-pipeline__node--remote span {
+  color: #EDEBFF;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الشريحة 10 — الخلاصة
+   ═══════════════════════════════════════════════════════════ */
+
+.todo {
+  list-style: none;
+  counter-reset: todo;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.todo li {
+  counter-increment: todo;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+
+.todo li::before {
+  content: counter(todo);
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--c-primary);
+  color: var(--c-primary-dark);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: var(--fs-small);
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.links a {
+  display: inline-flex;
+  gap: 12px;
+  align-items: baseline;
+  direction: ltr;
+  text-align: left;
+  font-size: var(--fs-small);
+  color: var(--c-primary-dark);
+  font-weight: 700;
+  text-decoration-color: var(--c-border);
+}
+
+.links a:hover {
+  text-decoration-color: var(--c-primary);
+}
+
+.closing {
+  text-align: center;
+  font-size: var(--fs-h3);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+  background: linear-gradient(180deg, var(--c-primary-soft), #FFFFFF);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius);
+  padding: 22px 34px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   عناصر التحكم وشريط التقدم
+   ═══════════════════════════════════════════════════════════ */
+
+.controls {
+  position: fixed;
+  bottom: clamp(18px, 3vh, 34px);
+  inset-inline: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  z-index: 10;
+}
+
+.nav-btn {
+  font-family: inherit;
+  font-size: clamp(28px, 2vw, 32px);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+  background: var(--c-bg);
+  border: 3px solid var(--c-primary);
+  border-radius: 999px;
+  padding: 10px 40px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: var(--c-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.nav-btn:focus-visible {
+  outline: 4px solid var(--c-primary);
+  outline-offset: 3px;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.nav-btn--primary {
+  background: var(--c-primary);
+  color: #fff;
+}
+
+.nav-btn--primary:hover:not(:disabled) {
+  background: var(--c-primary-dark);
+}
+
+.counter {
+  font-size: clamp(28px, 2vw, 32px);
+  font-weight: 800;
+  color: var(--c-primary-dark);
+  background: var(--c-bg);
+  border: 2px solid var(--c-border);
+  border-radius: 999px;
+  padding: 8px 28px;
+  font-variant-numeric: tabular-nums;
+  box-shadow: var(--shadow);
+}
+
+.progress {
+  position: fixed;
+  bottom: 0;
+  inset-inline: 0;
+  height: 10px;
+  background: #E7E4F6;
+  z-index: 10;
+}
+
+.progress__bar {
+  height: 100%;
+  width: 10%;
+  background: linear-gradient(90deg, var(--c-primary), #9B8CFF);
+  border-radius: 0 6px 6px 0;
+  transition: width 0.4s ease;
+}
+
+[dir="rtl"] .progress__bar {
+  border-radius: 6px 0 0 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الاستجابة للشاشات المختلفة
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+  .cards--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .terms {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .demo {
+    grid-template-columns: 1fr;
+  }
+
+  .flow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 780px) {
+  .slide {
+    padding-inline: 20px;
+  }
+
+  .grid-2,
+  .cmd-groups,
+  .compare__row {
+    grid-template-columns: 1fr;
+  }
+
+  .cover__title {
+    font-size: clamp(46px, 11vw, 72px);
+  }
+
+  .tl-back__label {
+    font-size: 24px;
+  }
+
+  .timeline::after {
+    font-size: 24px;
+  }
+
+  .tl-desc {
+    font-size: 24px;
+  }
+
+  .demo__step .code {
+    font-size: 24px;
+  }
+}
+
+/* تصغير تكلّف المساحة في الشاشات القصيرة */
+@media (max-height: 760px) {
+  .slide__inner {
+    gap: 20px;
+  }
+}
+
+/* تجميع عناصر الشرائح على الشاشات القصيرة (أجهزة العرض موجودة لكن نوافذ متوسطة) */
+@media (max-height: 960px) {
+  .slide__inner {
+    gap: 18px;
+  }
+
+  .card,
+  .panel,
+  .cmd-group,
+  .demo__step {
+    padding: 16px 20px;
+  }
+
+  .card__icon,
+  .term__icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .card__icon svg,
+  .term__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .code {
+    line-height: 1.55;
+    padding: 14px 20px;
+  }
+
+  .closing,
+  .cover__quote {
+    padding: 14px 24px;
+  }
+
+  .flow__num,
+  .steps__num,
+  .demo__num {
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   احترام إعدادات تقليل الحركة
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .slide {
+    transform: none;
+  }
+
+  .slide.is-active {
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الطباعة — كل شريحة صفحة أفقية مستقلة
+   ═══════════════════════════════════════════════════════════ */
+
+@page {
+  size: landscape;
+  margin: 0;
+}
+
+@media print {
+  /* تصغير الخطوط قليلًا للطباعة فقط حتى تحتل كل شريحة صفحة واحدة كاملة */
+  :root {
+    --fs-body: 24px;
+    --fs-small: 20px;
+    --fs-h3: 26px;
+    --fs-h2: 34px;
+    --fs-h1: 40px;
+  }
+
+  html,
+  body,
+  .deck,
+  .slides {
+    height: auto;
+    overflow: visible;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .deck {
+    background: radial-gradient(80vw 80vh at 85% -10%, rgba(108, 92, 231, 0.10), transparent 60%), #FFFFFF;
+  }
+
+  .slides {
+    display: block;
+  }
+
+  /* إظهار جميع الشرائح، كل واحدة صفحة مستقلة */
+  .slide {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    break-after: page;
+    page-break-after: always;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 48px;
+    background: #fff;
+  }
+
+  .slide:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .slide__inner {
+    max-height: none;
+    overflow: visible;
+    gap: 16px;
+    transition: none;
+  }
+
+  /* إخفاء عناصر التحكم التفاعلية */
+  .controls,
+  .progress,
+  .btn-visit {
+    display: none !important;
+  }
+
+  .card,
+  .panel,
+  .cmd-group,
+  .demo__step {
+    padding: 14px 18px;
+  }
+
+  .code {
+    line-height: 1.5;
+    padding: 12px 18px;
+  }
+
+  .branch-graph {
+    max-height: 200px;
+  }
+
+  /* الحفاظ على الألوان والمحتوى المقروء */
+  .term,
+  .code {
+    background: var(--c-code-bg) !important;
+    color: var(--c-code-text) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .card,
+  .panel,
+  .cmd-group,
+  .steps__num,
+  .flow__num,
+  .compare__item,
+  .mock-window,
+  .closing,
+  .cover__quote,
+  .demo-pipeline__node,
+  .demo-pipeline__node--remote,
+  .flow__step,
+  .stage,
+  .stage--remote,
+  .label--primary,
+  .cover__kicker,
+  .term,
+  .cmd,
+  .badge,
+  .term__icon,
+  .card__icon,
+  .pr-flow li,
+  .repo-diagram__repo,
+  .tl-dot,
+  .demo__num,
+  .steps__num,
+  .progress {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--c-primary-dark);
+  }
+}

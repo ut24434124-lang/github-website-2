@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="عرض تقديمي تفاعلي للتعريف بنظام Git ومنصة GitHub للمبتدئين والطلاب — باللغة العربية">
+  <title>تعرّف على Git وGitHub</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div id="deck" class="deck">
+  <main class="slides" id="slides">
+
+    <!-- ═══════════ الشريحة 1: الغلاف ═══════════ -->
+    <section class="slide slide--cover is-active" id="slide-1">
+      <div class="slide__inner cover">
+        <p class="cover__kicker">مرحبًا بعالم Git وGitHub</p>
+        <h1 class="cover__title">تعرّف على <span class="accent">Git</span> و<span class="accent">GitHub</span></h1>
+        <p class="cover__subtitle">من إدارة الكود إلى التعاون في المشاريع البرمجية.</p>
+
+        <div class="cover__brands">
+          <div class="brand-chip brand-chip--git">
+            <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">
+              <path d="M24 4 44 24 24 44 4 24Z" fill="#6C5CE7"/>
+              <circle cx="17" cy="17" r="4" fill="#fff"/>
+              <circle cx="17" cy="31" r="4" fill="#fff"/>
+              <circle cx="31" cy="19" r="4" fill="#fff"/>
+              <path d="M17 21v6M17 28c8 0 9-5 12-9-2 1-6 1-8-1" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            </svg>
+            <div>
+              <strong>Git</strong>
+              <span>أداة لإدارة الإصدارات</span>
+            </div>
+          </div>
+          <div class="brand-chip brand-chip--github">
+            <svg viewBox="0 0 48 48" width="44" height="44" aria-hidden="true" focusable="false">
+              <circle cx="24" cy="24" r="20" fill="#2D3436"/>
+              <path d="M15 38c-3 1-4-1-5-2s-3-1-2-2 3 0 5 2 5 0 5-2c0-5-1-6 0-8-5-1-7-3-7-7 0-2 1-4 2-5-1-2-1-4 0-5 2 0 4 1 5 2 4-1 8-1 12 0 1-1 3-2 5-2 1 1 1 3 0 5 1 1 2 3 2 5 0 4-2 6-7 7 1 3 0 6 0 8 0 2 1 3 3 3-2 1-4 1-5-1" fill="#fff"/>
+            </svg>
+            <div>
+              <strong>GitHub</strong>
+              <span>منصة لاستضافة المستودعات والتعاون</span>
+            </div>
+          </div>
+        </div>
+
+        <blockquote class="cover__quote">«تعلّم كيف تحفظ تقدمك البرمجي وتشارك مشاريعك بثقة»</blockquote>
+
+        <div class="cover__labels">
+          <span class="label label--primary">إدارة الإصدارات</span>
+          <span class="label">حفظ تقدمك</span>
+          <span class="label">مشاركة المشاريع</span>
+          <span class="label">العمل الجماعي</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 2: ما هو Git؟ ═══════════ -->
+    <section class="slide" id="slide-2">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 2</p>
+          <h2>Git — ذاكرة مشروعك البرمجي</h2>
+        </header>
+
+        <div class="grid-2">
+          <div class="panel">
+            <p class="lead">Git هو <strong>نظام موزّع للتحكم في إصدارات</strong> الملفات والمشاريع.</p>
+            <ul class="feature-list">
+              <li>
+                <span class="feature-list__dot" aria-hidden="true"></span>
+                يتتبع التعديلات التي تطرأ على ملفات المشروع بمرور الوقت.
+              </li>
+              <li>
+                <span class="feature-list__dot" aria-hidden="true"></span>
+                يتيح <strong>الرجوع إلى إصدارات سابقة</strong> عند الحاجة.
+              </li>
+              <li>
+                <span class="feature-list__dot" aria-hidden="true"></span>
+                يمكّنك من تجربة أفكار جديدة دون التأثير في العمل الأساسي.
+              </li>
+              <li>
+                <span class="feature-list__dot" aria-hidden="true"></span>
+                يعمل <strong>محليًا على جهازك</strong>، ولا يحتاج إلى GitHub لكي يعمل.
+              </li>
+            </ul>
+          </div>
+
+          <figure class="panel panel--diagram">
+            <figcaption class="panel__caption">مثال: مشروع مرّ بثلاثة إصدارات</figcaption>
+            <div class="timeline" role="img" aria-label="مخطط يوضح مشروعًا مر بثلاثة إصدارات مع إمكانية العودة إلى إصدار سابق">
+              <div class="tl-node">
+                <span class="tl-dot"></span>
+                <span class="tl-name" dir="ltr">v1</span>
+                <span class="tl-desc">الإصدار الأول<br>صفحة بسيطة</span>
+              </div>
+              <div class="tl-node">
+                <span class="tl-dot"></span>
+                <span class="tl-name" dir="ltr">v2</span>
+                <span class="tl-desc">الإصدار الثاني<br>إضافة التنسيق</span>
+              </div>
+              <div class="tl-node">
+                <span class="tl-dot"></span>
+                <span class="tl-name" dir="ltr">v3</span>
+                <span class="tl-desc">الإصدار الحالي<br>إضافة ميزة جديدة</span>
+              </div>
+              <span class="tl-back" aria-hidden="true">
+                <svg viewBox="0 0 240 60" width="240" height="60" focusable="false">
+                  <path d="M200 8C180 40 80 42 52 44" stroke="#6C5CE7" stroke-width="3" stroke-dasharray="8 7" fill="none"/>
+                  <path d="M60 34 46 46 66 52" stroke="#6C5CE7" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="tl-back__label">الرجوع إلى إصدار سابق عندما نحتاج ذلك</span>
+              </span>
+            </div>
+            <p class="hint">كل نقطة تمثل <strong>إصدارًا محفوظًا</strong> يمكن العودة إليه في أي وقت.</p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 3: ما هو GitHub؟ ═══════════ -->
+    <section class="slide" id="slide-3">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 3</p>
+          <h2>GitHub — مساحة التعاون البرمجي</h2>
+        </header>
+
+        <ul class="cards cards--4">
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="34" height="34"><path d="M12 3v10m0 0 4-4m-4 4-4-4M5 19h14" stroke="#6C5CE7" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>مشاركة الكود</h3>
+            <p>شارك الكود مع الآخرين عبر الإنترنت بسهولة.</p>
+          </li>
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 5h16M4 10h11M4 15h16M4 20h11" stroke="#6C5CE7" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+            </span>
+            <h3>مراجعة التعديلات</h3>
+            <p>راجع التغييرات وناقشها قبل اعتمادها.</p>
+          </li>
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="34" height="34"><path d="M9 12h6a3 3 0 1 0-3-3v3Zm0 0v6m-4 3h10a2 2 0 0 0 0-4H6a2 2 0 0 0 0 4Z" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>إدارة المهام</h3>
+            <p>تنظيم المهام والأخطاء والمشكلات في مكان واحد.</p>
+          </li>
+          <li class="card">
+            <span class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="34" height="34"><circle cx="12" cy="12" r="3.2" stroke="#6C5CE7" stroke-width="2" fill="none"/><path d="M12 2.8v3m0 12.4v3m9.2-9.2h-3m-12.4 0h-3m15.6-6.4-2.1 2.1M7.7 16.3l-2.1 2.1m12.8 0-2.1-2.1M7.7 7.7 5.6 5.6" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </span>
+            <h3>المصدر المفتوح</h3>
+            <p>ساهم في مشاريع مفتوحة المصدر حول العالم.</p>
+          </li>
+        </ul>
+
+        <div class="compare" role="table" aria-label="مقارنة بين Git وGitHub">
+          <p class="compare__title">Git وGitHub ليسا الشيء نفسه</p>
+          <div class="compare__row">
+            <div class="compare__item compare__item--git">
+              <strong>Git</strong>
+              <span>أداة لإدارة إصدارات المشروع — تعمل على جهازك.</span>
+            </div>
+            <div class="compare__item compare__item--github">
+              <strong>GitHub</strong>
+              <span>منصة لاستضافة المستودعات والتعاون وإدارة المشاريع — تعمل على الإنترنت.</span>
+            </div>
+          </div>
+          <a class="btn-visit" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+            زيارة الموقع
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 4: مفاهيم Git الأساسية ═══════════ -->
+    <section class="slide" id="slide-4">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 4</p>
+          <h2>تعرّف على المصطلحات المهمة</h2>
+        </header>
+
+        <ul class="terms">
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M4 4h16v13H4z" stroke="#6C5CE7" stroke-width="2" fill="none"/><path d="M4 8h16M8 20h8" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+            <h3>Repository <span class="term__ar">المستودع</span></h3>
+            <p>المكان الذي يحتوي على ملفات المشروع وسجل تغييراته.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><circle cx="12" cy="12" r="4.5" stroke="#6C5CE7" stroke-width="2" fill="none"/><path d="M2 12h5m10 0h5" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+            <h3>Commit <span class="term__ar">الحفظ المرحلي</span></h3>
+            <p>تسجيل مجموعة من التعديلات في سجل المشروع.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><circle cx="7" cy="6" r="2.6" stroke="#6C5CE7" stroke-width="2" fill="none"/><circle cx="7" cy="18" r="2.6" stroke="#6C5CE7" stroke-width="2" fill="none"/><circle cx="17" cy="8" r="2.6" stroke="#6C5CE7" stroke-width="2" fill="none"/><path d="M7 9v6M7 13c6 0 7-2 10-4" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round"/></svg></span>
+            <h3>Branch <span class="term__ar">الفرع</span></h3>
+            <p>مسار مستقل لتطوير ميزة أو تجربة تعديل.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5 4v5c0 3 2 4 5 4h4c3 0 5 1 5 4v3M5 4l-3 4m3-4 3 4M19 16l-3 4m3-4 3 4" stroke="#6C5CE7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Merge <span class="term__ar">الدمج</span></h3>
+            <p>جمع التعديلات من فرع إلى فرع آخر.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><rect x="4" y="4" width="12" height="12" rx="2" stroke="#6C5CE7" stroke-width="2" fill="none"/><path d="M16 9h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1v-3" stroke="#6C5CE7" stroke-width="2" fill="none"/></svg></span>
+            <h3>Clone <span class="term__ar">الاستنساخ</span></h3>
+            <p>إنشاء نسخة محلية من مستودع موجود.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 20V7m0 0-4 4m4-4 4 4M5 4h14" stroke="#6C5CE7" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Push <span class="term__ar">الرفع</span></h3>
+            <p>إرسال التعديلات المحلية إلى المستودع البعيد.</p>
+          </li>
+          <li class="term">
+            <span class="term__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 4v13m0 0-4-4m4 4 4-4M5 20h14" stroke="#6C5CE7" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>Pull <span class="term__ar">الجلب والدمج</span></h3>
+            <p>الحصول على التعديلات البعيدة ودمجها وفق سلوك الأمر المستخدم.</p>
+          </li>
+        </ul>
+
+        <figure class="panel panel--diagram panel--relation">
+          <figcaption class="panel__caption">العلاقة بين المستودع والفروع والتعديلات</figcaption>
+          <div class="repo-diagram" role="img" aria-label="مخطط: مستودع يحتوي على فرع رئيسي به ثلاثة تعديلات، وفرع ثانوي بتعديل مستقل">
+            <div class="repo-diagram__repo">
+              <span class="repo-diagram__title">Repository</span>
+              <div class="repo-diagram__branch">
+                <span class="repo-diagram__name" dir="ltr">main</span>
+                <span class="commit-dot" aria-hidden="true"></span>
+                <span class="commit-dot" aria-hidden="true"></span>
+                <span class="commit-dot" aria-hidden="true"></span>
+              </div>
+              <div class="repo-diagram__branch repo-diagram__branch--feature">
+                <span class="repo-diagram__name" dir="ltr">feature</span>
+                <span class="commit-dot commit-dot--accent" aria-hidden="true"></span>
+              </div>
+            </div>
+            <p class="repo-diagram__note">كل فرع يحمل تعديلاته (Commits) المستقلة داخل المستودع نفسه.</p>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 5: دورة العمل ═══════════ -->
+    <section class="slide" id="slide-5">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 5</p>
+          <h2>كيف تسجّل تغييراتك؟</h2>
+        </header>
+
+        <ol class="flow">
+          <li class="flow__step">
+            <span class="flow__num" aria-hidden="true">1</span>
+            <h3>تعديل الملفات</h3>
+            <p>طبّق تغييراتك داخل المشروع.</p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num" aria-hidden="true">2</span>
+            <h3>مراجعة التغييرات</h3>
+            <p><code dir="ltr">git status</code></p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num" aria-hidden="true">3</span>
+            <h3>تجهيز الملفات</h3>
+            <p><code dir="ltr">git add</code></p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num" aria-hidden="true">4</span>
+            <h3>تسجيل التغييرات</h3>
+            <p><code dir="ltr">git commit</code></p>
+          </li>
+          <li class="flow__step">
+            <span class="flow__num" aria-hidden="true">5</span>
+            <h3>رفع التغييرات</h3>
+            <p><code dir="ltr">git push</code></p>
+          </li>
+        </ol>
+
+        <div class="grid-2">
+          <div>
+            <h3 class="mini-title">مثال عملي</h3>
+            <div class="term">
+              <div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><span class="term__title" dir="ltr">terminal</span></div>
+              <pre class="code" dir="ltr" translate="no"><code>git status
+git add .
+git commit -m "Add homepage"
+git push</code></pre>
+            </div>
+            <p class="hint">لاحظ أن <code dir="ltr">git add .</code> يجهّز التغييرات الموجودة ضمن النطاق الحالي، ولذلك <strong>يُفضَّل مراجعة الملفات قبل تسجيلها</strong>.</p>
+          </div>
+
+          <figure class="panel panel--diagram">
+            <figcaption class="panel__caption">رحلة الملفات بين الحالات</figcaption>
+            <div class="stage-pipeline" role="img" aria-label="مخطط يوضح انتقال الملفات من التعديل إلى التجهيز ثم التسجيل ثم الرفع">
+              <div class="stage stage--edited"><strong>تعديل</strong><span>Modified</span></div>
+              <span class="stage-arrow" aria-hidden="true"></span>
+              <div class="stage"><strong>تجهيز</strong><span>Staged</span></div>
+              <span class="stage-arrow" aria-hidden="true"></span>
+              <div class="stage"><strong>تسجيل</strong><span>Committed</span></div>
+              <span class="stage-arrow" aria-hidden="true"></span>
+              <div class="stage stage--remote"><strong>رفع</strong><span>Pushed</span></div>
+            </div>
+            <p class="hint">كل مرحلة لها أمر خاص بها في Git، والترتيب هو سرّ دورة العمل.</p>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 6: أوامر Git ═══════════ -->
+    <section class="slide" id="slide-6">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 6</p>
+          <h2>أوامرك الأولى مع Git</h2>
+        </header>
+
+        <div class="cmd-groups">
+          <div class="cmd-group">
+            <h3 class="cmd-group__title">إنشاء المشروع</h3>
+            <ul>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git init</code>
+                <span class="cmd-desc">إنشاء مستودع Git جديد في المجلد الحالي.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git clone &lt;repository-url&gt;</code>
+                <span class="cmd-desc">جلب نسخة كاملة من مستودع موجود.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cmd-group">
+            <h3 class="cmd-group__title">حفظ التغييرات</h3>
+            <ul>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git status</code>
+                <span class="badge">يوميًا</span>
+                <span class="cmd-desc">عرض حالة الملفات والتغييرات.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git add &lt;file&gt;</code>
+                <span class="badge">يوميًا</span>
+                <span class="cmd-desc">تجهيز ملف أو أكثر للتسجيل.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git commit -m "Your message"</code>
+                <span class="badge">يوميًا</span>
+                <span class="cmd-desc">تسجيل التغييرات المجهزة برسالة وصفية.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git log</code>
+                <span class="cmd-desc">استعراض سجل الإصدارات السابقة.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cmd-group">
+            <h3 class="cmd-group__title">إدارة الفروع</h3>
+            <ul>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git branch</code>
+                <span class="cmd-desc">عرض الفروع الموجودة في المشروع.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git switch &lt;branch-name&gt;</code>
+                <span class="cmd-desc">الانتقال إلى فرع محدد.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="cmd-group">
+            <h3 class="cmd-group__title">المزامنة</h3>
+            <ul>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git pull</code>
+                <span class="badge">يوميًا</span>
+                <span class="cmd-desc">جلب التعديلات البعيدة ودمجها محليًا.</span>
+              </li>
+              <li class="cmd-row">
+                <code dir="ltr" class="cmd">git push</code>
+                <span class="badge">يوميًا</span>
+                <span class="cmd-desc">رفع تعديلاتك إلى المستودع البعيد.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <p class="hint hint--center">الأوامر المعلَّمة بـ <span class="badge">يوميًا</span> هي ما سيستخدمه المبتدئ في معظم أيامه.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 7: الفروع وطلبات الدمج ═══════════ -->
+    <section class="slide" id="slide-7">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 7</p>
+          <h2>اعمل على ميزات جديدة بأمان</h2>
+        </header>
+
+        <ul class="cards cards--3">
+          <li class="card">
+            <h3>لماذا الفروع؟</h3>
+            <p>الفرع مسار مستقل يتيح العمل على ميزة جديدة دون تعديل الفرع الأساسي <code dir="ltr">main</code> مباشرة.</p>
+          </li>
+          <li class="card">
+            <h3>ما هو Pull Request؟</h3>
+            <p>في GitHub، طلب لمراجعة التغييرات ومناقشتها مع الفريق قبل دمجها.</p>
+          </li>
+          <li class="card">
+            <h3>العلاقة بين المفاهيم</h3>
+            <p>تُسجَّل التعديلات <code dir="ltr">Commit</code> على <code dir="ltr">Branch</code>، ثم تُراجَع عبر <code dir="ltr">Pull Request</code>، وأخيرًا تُدمَج في <code dir="ltr">Merge</code>.</p>
+          </li>
+        </ul>
+
+        <figure class="panel panel--diagram">
+          <figcaption class="panel__caption">سيناريو العمل: من الفكرة إلى الدمج</figcaption>
+
+          <ol class="pr-flow" aria-label="خطوات: إنشاء فرع ثم التعديل ثم الرفع ثم طلب الدمج ثم المراجعة ثم الدمج">
+            <li><span>1</span><strong dir="ltr">main</strong></li>
+            <li class="pr-flow__arrow" aria-hidden="true"></li>
+            <li><span>2</span><strong>إنشاء فرع جديد</strong></li>
+            <li class="pr-flow__arrow" aria-hidden="true"></li>
+            <li><span>3</span><strong>إجراء التعديلات</strong></li>
+            <li class="pr-flow__arrow" aria-hidden="true"></li>
+            <li><span>4</span><strong>رفع الفرع</strong></li>
+            <li class="pr-flow__arrow" aria-hidden="true"></li>
+            <li><span>5</span><strong dir="ltr" class="en">Pull Request</strong></li>
+            <li class="pr-flow__arrow" aria-hidden="true"></li>
+            <li><span>6</span><strong>المراجعة والدمج</strong></li>
+          </ol>
+
+          <svg class="branch-graph" viewBox="0 0 900 220" role="img" aria-label="مخطط يوضح تفرع مسار التطوير من الفرع الأساسي main ثم عودته للدمج فيه" focusable="false">
+            <path d="M60 170 H840" stroke="#ced2e3" stroke-width="6" fill="none"/>
+            <path d="M210 170 C 280 170 280 80 350 80 H720 C 790 80 800 170 840 170" stroke="#6C5CE7" stroke-width="6" fill="none"/>
+            <g>
+              <circle cx="60" cy="170" r="14" fill="#6C5CE7"/>
+              <circle cx="210" cy="170" r="14" fill="#6C5CE7"/>
+              <circle cx="350" cy="80" r="14" fill="#fff" stroke="#6C5CE7" stroke-width="6"/>
+              <circle cx="535" cy="80" r="14" fill="#fff" stroke="#6C5CE7" stroke-width="6"/>
+              <circle cx="720" cy="80" r="14" fill="#fff" stroke="#6C5CE7" stroke-width="6"/>
+              <circle cx="840" cy="170" r="14" fill="#6C5CE7"/>
+            </g>
+            <g font-family="Cairo, Tahoma, sans-serif" font-size="28" text-anchor="middle">
+              <text x="60" y="140" fill="#2D3436" font-weight="700" dir="ltr">main</text>
+              <text x="535" y="40" fill="#6C5CE7" font-weight="700" dir="ltr">feature-x</text>
+              <text x="80" y="208" fill="#636e72">إصدار أساسي</text>
+              <text x="535" y="208" fill="#636e72">تعديلات الميزة (Commits)</text>
+              <text x="840" y="208" fill="#636e72">دمج (Merge)</text>
+            </g>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 8: إنشاء مستودع على GitHub ═══════════ -->
+    <section class="slide" id="slide-8">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 8</p>
+          <h2>من جهازك إلى الإنترنت</h2>
+        </header>
+
+        <div class="grid-2">
+          <div>
+            <ol class="steps">
+              <li><span class="steps__num" aria-hidden="true">1</span> تسجيل الدخول إلى GitHub.</li>
+              <li><span class="steps__num" aria-hidden="true">2</span> إنشاء مستودع جديد من زر «New Repository».</li>
+              <li><span class="steps__num" aria-hidden="true">3</span> اختيار اسم المستودع وتحديد مستوى ظهوره (عام أو خاص).</li>
+              <li><span class="steps__num" aria-hidden="true">4</span> إنشاء المستودع.</li>
+              <li><span class="steps__num" aria-hidden="true">5</span> ربط المشروع المحلي بالمستودع البعيد — إذا كان المشروع موجودًا محليًا.</li>
+              <li><span class="steps__num" aria-hidden="true">6</span> رفع الملفات إلى المستودع.</li>
+              <li><span class="steps__num" aria-hidden="true">7</span> التحقق من ظهور الملفات على الموقع.</li>
+            </ol>
+
+            <div class="term">
+              <div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><span class="term__title" dir="ltr">terminal</span></div>
+              <pre class="code" dir="ltr" translate="no"><code>git remote add origin &lt;repository-url&gt;
+git branch -M main
+git push -u origin main</code></pre>
+            </div>
+            <p class="hint">هذه الأوامر تفترض أن المشروع المحلي <strong>مهيّأ بالفعل باستخدام Git</strong>، ويجب استبدال <code dir="ltr">&lt;repository-url&gt;</code> برابط المستودع الحقيقي.</p>
+          </div>
+
+          <div>
+            <figure class="mock-window" role="img" aria-label="شكل توضيحي لنموذج إنشاء مستودع جديد على GitHub: حقل اسم المستودع، اختيار الحالة العامة أو الخاصة، وزر إنشاء المستودع">
+              <div class="mock-window__bar" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="mock-window__head">
+                <strong dir="ltr">github.com/new</strong>
+                <span>مستودع جديد</span>
+              </div>
+              <div class="mock-window__body">
+                <div class="mock-field">
+                  <span class="mock-field__label">اسم المستودع</span>
+                  <span class="mock-field__value" dir="ltr">my-project</span>
+                </div>
+                <div class="mock-field">
+                  <span class="mock-field__label">مستوى الظهور</span>
+                  <span class="mock-choice mock-choice--on" dir="ltr">Public</span>
+                  <span class="mock-choice" dir="ltr">Private</span>
+                </div>
+                <span class="mock-btn" dir="ltr">Create repository</span>
+              </div>
+              <figcaption class="mock-window__caption">واجهة إنشاء مستودع جديد على GitHub (رسم توضيحي)</figcaption>
+            </figure>
+
+            <a class="btn-visit" href="https://github.com/" target="_blank" rel="noopener noreferrer">
+              زيارة الموقع
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 9: مثال عملي متكامل ═══════════ -->
+    <section class="slide" id="slide-9">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 9</p>
+          <h2>لننفّذ مشروعًا صغيرًا</h2>
+        </header>
+
+        <div class="demo">
+          <div class="demo__step">
+            <h3><span class="demo__num" aria-hidden="true">1</span> تهيئة المشروع</h3>
+            <div class="term">
+              <div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><span class="term__title" dir="ltr">terminal</span></div>
+              <pre class="code" dir="ltr" translate="no"><code>mkdir my-project
+cd my-project
+git init</code></pre>
+            </div>
+            <p class="demo__result">أنشأنا مجلدًا جديدًا وحوّلناه إلى مستودع Git يتتبع تغييراته.</p>
+          </div>
+
+          <div class="demo__step">
+            <h3><span class="demo__num" aria-hidden="true">2</span> الحفظ المرحلي</h3>
+            <div class="term">
+              <div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><span class="term__title" dir="ltr">terminal</span></div>
+              <pre class="code" dir="ltr" translate="no"><code>git status
+git add index.html
+git commit -m "Initial commit"</code></pre>
+            </div>
+            <p class="demo__result">أنشأنا ملف <code dir="ltr">index.html</code> مسبقًا، ثم سجّلنا أول إصدار من المشروع.</p>
+          </div>
+
+          <div class="demo__step">
+            <h3><span class="demo__num" aria-hidden="true">3</span> الرفع إلى GitHub</h3>
+            <div class="term">
+              <div class="term__bar" aria-hidden="true"><span></span><span></span><span></span><span class="term__title" dir="ltr">terminal</span></div>
+              <pre class="code" dir="ltr" translate="no"><code>git remote add origin &lt;repository-url&gt;
+git branch -M main
+git push -u origin main</code></pre>
+            </div>
+            <p class="demo__result">اربطنا مستودعنا المحلي بمستودع جديد على GitHub ورفعنا المشروع إليه.</p>
+          </div>
+        </div>
+
+        <figure class="demo-pipeline" role="img" aria-label="مخطط يوضح رحلة المشروع: ملفات المشروع محليًا، ثم المستودع المحلي مع Git، ثم مستودع GitHub على الإنترنت">
+          <div class="demo-pipeline__node"><strong>مجلد المشروع</strong><span>Status</span></div>
+          <div class="demo-pipeline__node demo-pipeline__node--git"><strong>المستودع المحلي</strong><span>Commit</span></div>
+          <div class="demo-pipeline__node demo-pipeline__node--remote"><strong>GitHub</strong><span>Push</span></div>
+        </figure>
+
+        <p class="hint hint--center"><strong>تنبيه:</strong> استبدل <code dir="ltr">&lt;repository-url&gt;</code> بعنوان المستودع الفعلي، ولاحظ أن اسم الملف في المثال يفترض أن <code dir="ltr">index.html</code> قد أُنشئ مسبقًا.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ الشريحة 10: الخلاصة ═══════════ -->
+    <section class="slide" id="slide-10">
+      <div class="slide__inner">
+        <header class="slide__head">
+          <p class="slide__eyebrow">الشريحة 10</p>
+          <h2>أصبحت مستعدًا للانطلاق</h2>
+        </header>
+
+        <div class="grid-2">
+          <div class="panel">
+            <h3 class="panel__title">أهم ما تعلمناه</h3>
+            <ul class="feature-list">
+              <li><span class="feature-list__dot" aria-hidden="true"></span> Git يتتبع تاريخ التغييرات.</li>
+              <li><span class="feature-list__dot" aria-hidden="true"></span> GitHub يساعد على استضافة المشاريع والتعاون عليها.</li>
+              <li><span class="feature-list__dot" aria-hidden="true"></span> Commit يسجّل التعديلات.</li>
+              <li><span class="feature-list__dot" aria-hidden="true"></span> Branch يتيح تطوير الميزات بصورة مستقلة.</li>
+              <li><span class="feature-list__dot" aria-hidden="true"></span> Push يرفع التغييرات، وPull يجلب التعديلات البعيدة ويدمجها وفق سلوك الأمر المستخدم.</li>
+              <li><span class="feature-list__dot" aria-hidden="true"></span> Pull Request يسهّل مراجعة التعديلات قبل دمجها.</li>
+            </ul>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel__title">ماذا بعد؟</h3>
+            <ul class="todo">
+              <li>إنشاء أول مستودع شخصي.</li>
+              <li>رفع مشروع بسيط.</li>
+              <li>تجربة الفروع وطلبات الدمج.</li>
+              <li>استكشاف المشاريع مفتوحة المصدر.</li>
+            </ul>
+
+            <h3 class="panel__title panel__title--links">روابط مفيدة</h3>
+            <ul class="links" dir="ltr">
+              <li><a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer"><span dir="rtl">موقع Git</span> git-scm.com</a></li>
+              <li><a href="https://github.com/" target="_blank" rel="noopener noreferrer"><span dir="rtl">GitHub</span> github.com</a></li>
+              <li><a href="https://docs.github.com/" target="_blank" rel="noopener noreferrer"><span dir="rtl">توثيق GitHub</span> docs.github.com</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <blockquote class="closing">«كل مشروع كبير يبدأ بخطوة صغيرة وCommit أول»</blockquote>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="controls" aria-label="التنقل بين الشرائح">
+    <button class="nav-btn" id="prev-btn" type="button" aria-label="الانتقال إلى الشريحة السابقة">السابق</button>
+    <p class="counter" id="slide-counter" aria-live="polite" aria-atomic="true">1 / 10</p>
+    <button class="nav-btn nav-btn--primary" id="next-btn" type="button" aria-label="الانتقال إلى الشريحة التالية">التالي</button>
+  </nav>
+
+  <div class="progress" role="progressbar" aria-label="تقدم العرض التقديمي" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1">
+    <div class="progress__bar" id="progress-bar"></div>
+  </div>
+</div>
+
+<script src="assets/js/slides.js"></script>
+</body>
+</html>
